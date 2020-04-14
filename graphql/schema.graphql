@@ -1,7 +1,42 @@
 type Employee {
   _id: ID!
-  title: String!
-  teacher: String
-  description: String!
-  topic: String
+  firstName: String!
+  lastName: String!
+  position: String!
+  salary:Int!
+  state: String!
+  project:[Project]
 }
+
+type Project {
+  _id:ID!
+  name:String!
+  department:String!
+}
+
+input EmployeeInput{
+  firstName: String!
+  lastName: String!
+  position: String!
+  salary:Int!
+  state: String!
+}
+
+input projectInput{
+  name:String!
+  department:String!
+}
+
+type Query{
+  "Devuelve todos los empleados"
+  getAllEmployees: [Employee]
+  "Devuelve los empleados por proyecto"
+  getEmployessByProject(projectName:String):[Employee]
+}
+
+# type Mutation {  
+#   "Crear un empleado"
+#   createEmployee(input:EmployeeInput):Employee
+#   "Crear un proyecto"
+#   crateProject(input:projectInput):Project
+# }
