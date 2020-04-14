@@ -1,7 +1,7 @@
-import {queries} from './queries';
-// const mutations = require('./mutation')
-// const types = require('./types');
+import { queries } from "./queries";
+import { mutations } from "./mutations";
 
 export const resolvers = {
     Query: queries,
+    Mutation: mutations,
 };

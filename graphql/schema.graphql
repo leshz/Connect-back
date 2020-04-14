@@ -34,9 +34,9 @@ type Query{
   getEmployessByProject(projectName:String):[Employee]
 }
 
-# type Mutation {  
-#   "Crear un empleado"
-#   createEmployee(input:EmployeeInput):Employee
-#   "Crear un proyecto"
-#   crateProject(input:projectInput):Project
-# }
+type Mutation {  
+  "Crear un empleado"
+  createEmployee(input:EmployeeInput):Employee
+  "Crear un proyecto"
+  crateProject(input:projectInput):Project
+}

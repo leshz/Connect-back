@@ -6,7 +6,7 @@ export const queries = {
     let employess = [];
     try {
       db = await Mongo.getConnection()
-      employess = db.collection('employee').fin().toArray();
+      employess = db.collection('employee').find().toArray();
     }
     catch (err) { 
       console.error(err.message);
