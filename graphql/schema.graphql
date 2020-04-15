@@ -32,6 +32,8 @@ type Query{
   getAllEmployees: [Employee]
   "Devuelve los empleados por proyecto"
   getEmployessByProject(projectName:String):[Employee]
+  "Devuelve todos los proyectos"
+  getAllProjects:[Project]
 }
 
 type Mutation {  
