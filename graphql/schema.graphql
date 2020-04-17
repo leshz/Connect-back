@@ -4,7 +4,7 @@ type Employee {
   lastName: String!
   position: String!
   salary:Int!
-  state: String!
+  state: Boolean!
   project:[Project]
 }
 
@@ -19,7 +19,8 @@ input EmployeeInput{
   lastName: String!
   position: String!
   salary:Int!
-  state: String!
+  state: Boolean!
+  project:ID
 }
 
 input projectInput{
@@ -31,14 +32,16 @@ type Query{
   "Devuelve todos los empleados"
   getAllEmployees: [Employee]
   "Devuelve los empleados por proyecto"
-  getEmployessByProject(projectName:String):[Employee]
+  getEmployessByProject(idProject:ID!):[Employee]
   "Devuelve todos los proyectos"
   getAllProjects:[Project]
 }
 
 type Mutation {  
   "Crear un empleado"
-  createEmployee(input:EmployeeInput):Employee
+  createEmployee(input:EmployeeInput!):Employee
   "Crear un proyecto"
-  crateProject(input:projectInput):Project
+  crateProject(input:projectInput!):Project
+  "Edita la informacion de un empleado"
+  editEmployee(_id:ID! , input: EmployeeInput!):Employee
 }
