@@ -33,20 +33,20 @@ export const mutations = {
     try {
       DB = await Mongo.getConnection();
       if (input.project !== undefined) {
-        project = await DB.collection('projects').findOne({ _id: ObjectID(input.project) });
+        project = await DB.collection('projects').findOne({ _id: new ObjectID(input.project) });
         if (!project) throw new Error('Project doesnt exist');
         await DB.collection('employees').updateOne(
-          { _id: ObjectID(id) },
+          { _id: new ObjectID(id) },
           // { $set: input },
-          {$addToSet: { project: ObjectID(input.project)}}
+          {$addToSet: { project: new ObjectID(input.project)}}
         )
       } else { 
         await DB.collection('employees').updateOne(
-          { _id: ObjectID(id) },
+          { _id: new ObjectID(id) },
           { $set: input }
         )
       }  
-      employee = await DB.collection('employees').findOne({ _id: ObjectID(id)})     
+      employee = await DB.collection('employees').findOne({ _id: new ObjectID(id)})     
     } catch (error) {
       console.log(error);
     }
