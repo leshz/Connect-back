@@ -5,7 +5,7 @@ export const mutations = {
   createEmployee: async (root, { input }) => {
     let employee;
     try {
-      let DB = await Mongo.getConnection();
+      const DB = await Mongo.getConnection();
       employee = await DB.collection("employees").insertOne(input);
       input._id = employee.insertedId;
     } catch (err) {
@@ -16,7 +16,7 @@ export const mutations = {
   crateProject: async (root, { input }) => {
     let project;
     try {
-      let DB = await Mongo.getConnection();
+      const DB = await Mongo.getConnection();
       project = await DB.collection("projects").insertOne(input);
       input._id = project.insertedId;
     } catch (err) {
@@ -37,7 +37,7 @@ export const mutations = {
         if (!project) throw new Error('Project doesnt exist');
         await DB.collection('employees').updateOne(
           { _id: new ObjectID(id) },
-          // { $set: input },
+          { $set: input },
           {$addToSet: { project: new ObjectID(input.project)}}
         )
       } else { 

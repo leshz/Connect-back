@@ -6,8 +6,6 @@ const MONGO_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWD}
 export class Mongo {
   private static instance: any;
 
-  private constructor() {}
-
   static getConnection() {
     if (!Mongo.instance) {
       const client = new MongoClient(MONGO_URI, {

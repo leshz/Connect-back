@@ -1,6 +1,6 @@
 require("dotenv").config();
 import express = require("express");
-const gqlMiddleware = require("express-graphql");
+import gqlMiddleware from "express-graphql";
 import { makeExecutableSchema } from "graphql-tools";
 import { resolvers } from "./graphql/resolvers";
 import { readFileSync } from "fs";
