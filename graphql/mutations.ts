@@ -24,7 +24,7 @@ export const mutations = {
     }
     return input
   },
-  editEmployee: async (root, {employeeID, input }) => { 
+  editEmployee: async (root, {id, input }) => { 
 
     let DB;
     let employee=[];
@@ -32,22 +32,21 @@ export const mutations = {
 
     try {
       DB = await Mongo.getConnection();
-
-      // if (input.project !== undefined) {         
-      //   project = await DB.collection('projects').findOne({ _id: ObjectID(input.project) });
-      //   if (!project) throw new Error('Project doesnt exist');
-      // }   
-      // await DB.collection('employees').updateOne(
-      //   { _id: ObjectID(employeeID) },
-      //   { $set: input }
-      // )
-      // const coco = ;
-      // console.log(coco);
-      console.log(input);
-      
-      
-      employee = await DB.collection('employees').find({ _id: new ObjectID(employeeID)})     
-      
+      if (input.project !== undefined) {
+        project = await DB.collection('projects').findOne({ _id: ObjectID(input.project) });
+        if (!project) throw new Error('Project doesnt exist');
+        await DB.collection('employees').updateOne(
+          { _id: ObjectID(id) },
+          // { $set: input },
+          {$addToSet: { project: ObjectID(input.project)}}
+        )
+      } else { 
+        await DB.collection('employees').updateOne(
+          { _id: ObjectID(id) },
+          { $set: input }
+        )
+      }  
+      employee = await DB.collection('employees').findOne({ _id: ObjectID(id)})     
     } catch (error) {
       console.log(error);
     }

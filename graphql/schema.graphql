@@ -43,5 +43,5 @@ type Mutation {
   "Crear un proyecto"
   crateProject(input:projectInput!):Project
   "Edita la informacion de un empleado"
-  editEmployee(_id:ID! , input: EmployeeInput!):Employee
+  editEmployee(id:ID! , input: EmployeeInput!):Employee
 }
