@@ -60,14 +60,15 @@ export const mutations = {
     }
     return employee;
   },
-  editProject: async (root, { id }) => { 
+  editProject: async (root, { id , input }) => { 
     let db;
     let project;
     try {
       db = await Mongo.getConnection()
-      project = db.collection('prjects').findOne({_id: new ObjectID(id) })
+      await db.collection('projects').updateOne({ _id: new ObjectID(id) }, { $set: input })
+      project = db.collection('projects').findOne({ _id: new ObjectID(id) });
     } catch (error) {
-      
+      console.log(error);
     }
     return project
   }

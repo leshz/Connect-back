@@ -46,5 +46,17 @@ export const queries = {
       
     }
     return project
+  },
+  getEmployessByProject: async (root, { idProject }) => { 
+    let db;
+    let employess = [];
+    try {
+      db = await Mongo.getConnection();  
+      const information = idProject !== "" ? new ObjectID(idProject) : null;       
+      employess = db.collection("employees").find({ project: { $all: [information] }}).toArray();      
+    } catch (error) {
+      console.log(error);
+    }
+    return employess;
   }
 };

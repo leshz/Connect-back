@@ -14,18 +14,18 @@ type Project {
   department:String!
 }
 
-input EmployeeInput{
+input ProjectInput{
+  name:String!
+  department:String!
+}
+
+input EmployeeInput {
   firstName: String!
   lastName: String!
   position: String!
   salary:Int!
   state: Boolean!
   project:ID
-}
-
-input projectInput{
-  name:String!
-  department:String!
 }
 
 type Query{
@@ -44,10 +44,10 @@ type Query{
 type Mutation {  
   "Crear un empleado"
   createEmployee(input:EmployeeInput!):Employee
-  "Crear un proyecto"
-  crateProject(input:projectInput!):Project
   "Edita la informacion de un empleado"
   editEmployee(id:ID! , input: EmployeeInput!):Employee
-  "Edita un proyecto"
-  editProject(id:ID!):Project
+  "Crear un proyecto"
+  crateProject(input:ProjectInput!):Project
+  "Edita la informacion de un proyecto"
+  editProject(id:ID! , input: ProjectInput!):Project
 }
