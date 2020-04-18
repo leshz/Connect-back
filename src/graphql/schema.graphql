@@ -50,4 +50,8 @@ type Mutation {
   crateProject(input:ProjectInput!):Project
   "Edita la informacion de un proyecto"
   editProject(id:ID! , input: ProjectInput!):Project
+  "Elimina un empleado Por ID"
+  deleteEmployee(id:ID!):Boolean
+  "Elimina un projecto por ID"
+  deleteProject(id:ID!):Boolean
 }

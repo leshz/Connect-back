@@ -71,5 +71,28 @@ export const mutations = {
       console.log(error);
     }
     return project
+  },
+  deleteEmployee: async (root, { id }) => { 
+    let db;
+    let employees;
+    try {
+      db = await Mongo.getConnection();
+      await db.collection("employees").deleteOne({_id: new ObjectID(id)})
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+    return true;
+  },
+  deleteProject: async (root, { id }) => { 
+    let db;
+    try {
+      db = await Mongo.getConnection();
+      await db.collection("projects").deleteOne({_id: new ObjectID(id)})
+    } catch (err) {
+      console.log(err);
+      return false;
+    }
+    return true;
   }
 };
