@@ -1,6 +1,7 @@
 require("dotenv").config();
 import express = require("express");
 import gqlMiddleware from "express-graphql";
+import cors = require("cors");
 import { makeExecutableSchema } from "graphql-tools";
 import { resolvers } from "./graphql/resolvers";
 import { readFileSync } from "fs";
@@ -17,6 +18,8 @@ const typeDefs = readFileSync(
 );
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+app.use(cors())
 
 app.use(
   "/api",
