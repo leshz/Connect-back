@@ -1,4 +1,5 @@
 import { Mongo } from "../bd/db";
+import {ObjectID} from 'mongodb';
 
 export const queries = {
   getAllEmployees: async () => {
@@ -23,4 +24,27 @@ export const queries = {
     }
     return projects;
   },
+  getEmployeeByID: async (root, { id }) => {
+    let db;
+    let employees;
+
+    try {
+      db = await Mongo.getConnection();
+      employees = db.collection("employees").findOne({_id: new ObjectID(id)})
+    } catch (err) {
+      console.log(err);
+    }
+    return employees;
+  },
+  getProjectByID: async (root, { id }) => { 
+    let db;
+    let project;
+    try {
+      db = await Mongo.getConnection()
+      project = db.collection('projects').findOne({_id: new ObjectID(id) })
+    } catch (error) {
+      
+    }
+    return project
+  }
 };

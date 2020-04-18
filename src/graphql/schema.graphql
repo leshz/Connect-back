@@ -29,10 +29,14 @@ input projectInput{
 }
 
 type Query{
+  "Trae un empleado por ID"
+  getEmployeeByID(id:ID!):Employee
   "Devuelve todos los empleados"
   getAllEmployees: [Employee]
   "Devuelve los empleados por proyecto"
   getEmployessByProject(idProject:ID!):[Employee]
+  "Entrega informacion de proyecto por ID"
+  getProjectByID(id:ID!):Project
   "Devuelve todos los proyectos"
   getAllProjects:[Project]
 }
@@ -44,4 +48,6 @@ type Mutation {
   crateProject(input:projectInput!):Project
   "Edita la informacion de un empleado"
   editEmployee(id:ID! , input: EmployeeInput!):Employee
+  "Edita un proyecto"
+  editProject(id:ID!):Project
 }
