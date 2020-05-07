@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "tsc",
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly ./src/index.ts",
-    "prod": "tsc && node ./build/app.js"
+    "build": "tsc  && cp ./src/graphql/schema.graphql ./dist/graphql/"
   },
   "dependencies": {
     "@types/express": "^4.17.4",
