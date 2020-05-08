@@ -3,10 +3,13 @@
   "name": "connect-back-shz",
   "alias": ["Coonect-api"],
   "builds": [{ "src": "index.js", "use": "@now/node" }],
+  "env":{
+    "DB_USER":"@db_user"
+  },
   "routes": [{
     "headers": {
       "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Methods": "GET, POST,",
       "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
     },
     "src": "/.*",
