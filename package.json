@@ -1,7 +1,7 @@
 {
   "name": "connect-back",
   "version": "1.0.0",
-  "description": "",
+  "description": "Esta aplicacion basada en nodejs te ayudara con la gestion en tu trabajo",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --no-notify --respawn --transpileOnly ./src/index.ts",
@@ -29,6 +29,14 @@
     "nodemon": "^1.18.11"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Jeffer Barragan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leshz/Connect-back.git"
+  },
+  "bugs": {
+    "url": "https://github.com/leshz/Connect-back/issues"
+  },
+  "homepage": "https://github.com/leshz/Connect-back#readme"
 }
