@@ -1,15 +1,13 @@
 {
+  "name": "connect-back",
+  "alias": "connect-back",
   "version": 2,
-  "name": "connect-back-shz",
-  "alias": ["Coonect-api"],
-  "builds": [{ "src": "index.js", "use": "@now/node" }],
-  "routes": [{
-    "headers": {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept"
-    },
-    "src": "/.*",
-    "dest": "index.js"
-  }]
+  "builds": [{ "src": "src/index.ts", "use": "@now/node" }],
+  "routes": [{ "src": "^/(.*)", "dest": "src/index.ts" }],
+  "env": {
+    "DB_NAME": "@db_name",
+    "DB_PORT": "@db_port",
+    "DB_PASSWD":"@db_passwd",
+    "DB_USER" : "@db_user"
+  }
 }

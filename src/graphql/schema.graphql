@@ -1,0 +1,57 @@
+type Employee {
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  position: String!
+  salary:Int!
+  state: Boolean!
+  project:[Project]
+}
+
+type Project {
+  _id:ID!
+  name:String!
+  department:String!
+}
+
+input ProjectInput{
+  name:String!
+  department:String!
+}
+
+input EmployeeInput {
+  firstName: String!
+  lastName: String!
+  position: String!
+  salary:Int!
+  state: Boolean!
+  project:ID
+}
+
+type Query{
+  "Trae un empleado por ID"
+  getEmployeeByID(id:ID!):Employee
+  "Devuelve todos los empleados"
+  getAllEmployees: [Employee]
+  "Devuelve los empleados por proyecto"
+  getEmployessByProject(idProject:ID!):[Employee]
+  "Entrega informacion de proyecto por ID"
+  getProjectByID(id:ID!):Project
+  "Devuelve todos los proyectos"
+  getAllProjects:[Project]
+}
+
+type Mutation {  
+  "Crear un empleado"
+  createEmployee(input:EmployeeInput!):Employee
+  "Edita la informacion de un empleado"
+  editEmployee(id:ID! , input: EmployeeInput!):Employee
+  "Crear un proyecto"
+  crateProject(input:ProjectInput!):Project
+  "Edita la informacion de un proyecto"
+  editProject(id:ID! , input: ProjectInput!):Project
+  "Elimina un empleado Por ID"
+  deleteEmployee(id:ID!):Boolean
+  "Elimina un projecto por ID"
+  deleteProject(id:ID!):Boolean
+}
