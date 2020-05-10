@@ -4,14 +4,38 @@ import { ObjectID } from "mongodb";
 export const mutations = {
   createEmployee: async (root, { input }) => {
     let employee;
+    let project;
+    let IdProject
     try {
       const db = await Mongo.getConnection();
-      employee = await db.collection("employees").insertOne(input);
-      input._id = employee.insertedId;
+      if (input.project !== undefined && input.project !== "") {
+        project = await db.collection("projects").findOne({
+          _id: new ObjectID(input.project),
+        });
+        if (!project) throw new Error("Project doesnt exist");
+        IdProject =  input.project;
+        delete input.project;
+        employee = await db.collection("employees").insertOne(input);
+        const idEmployee = employee.insertedId;
+        employee = await db.collection("employees").updateOne(
+          { _id: new ObjectID(idEmployee) },
+          {
+            $addToSet: { project: new ObjectID(IdProject) },
+            $set: input,
+          }
+        );
+        employee = await db.collection("employees").findOne({
+          _id: new ObjectID(idEmployee),
+        });
+      } else {
+        employee = await db.collection("employees").insertOne(input);
+        input._id = employee.insertedId;
+        employee = input;
+      }
     } catch (err) {
       console.error(err.message);
     }
-    return input;
+    return employee;
   },
   crateProject: async (root, { input }) => {
     let project;
@@ -47,10 +71,9 @@ export const mutations = {
         );
       } else {
         input.project = [];
-        await db.collection("employees").updateOne(
-          { _id: new ObjectID(id) },
-          { $set: input }
-        );
+        await db
+          .collection("employees")
+          .updateOne({ _id: new ObjectID(id) }, { $set: input });
       }
       employee = await db.collection("employees").findOne({
         _id: new ObjectID(id),
@@ -60,39 +83,41 @@ export const mutations = {
     }
     return employee;
   },
-  editProject: async (root, { id , input }) => { 
+  editProject: async (root, { id, input }) => {
     let db;
     let project;
     try {
-      db = await Mongo.getConnection()
-      await db.collection('projects').updateOne({ _id: new ObjectID(id) }, { $set: input })
-      project = db.collection('projects').findOne({ _id: new ObjectID(id) });
+      db = await Mongo.getConnection();
+      await db
+        .collection("projects")
+        .updateOne({ _id: new ObjectID(id) }, { $set: input });
+      project = db.collection("projects").findOne({ _id: new ObjectID(id) });
     } catch (error) {
       console.log(error);
     }
-    return project
+    return project;
   },
-  deleteEmployee: async (root, { id }) => { 
+  deleteEmployee: async (root, { id }) => {
     let db;
     let employees;
     try {
       db = await Mongo.getConnection();
-      await db.collection("employees").deleteOne({_id: new ObjectID(id)})
+      await db.collection("employees").deleteOne({ _id: new ObjectID(id) });
     } catch (err) {
       console.log(err);
       return false;
     }
     return true;
   },
-  deleteProject: async (root, { id }) => { 
+  deleteProject: async (root, { id }) => {
     let db;
     try {
       db = await Mongo.getConnection();
-      await db.collection("projects").deleteOne({_id: new ObjectID(id)})
+      await db.collection("projects").deleteOne({ _id: new ObjectID(id) });
     } catch (err) {
       console.log(err);
       return false;
     }
     return true;
-  }
+  },
 };
