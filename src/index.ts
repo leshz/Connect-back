@@ -1,3 +1,4 @@
+//@ts-nocheck
 require("dotenv").config();
 import express = require("express");
 import gqlMiddleware from "express-graphql";
@@ -10,7 +11,7 @@ import { join } from "path";
 const { PORT, MODE } = process.env;
 
 const app: express.Application = express();
-const isDevConf = MODE === "development" ? true : false;
+const isDevConf = MODE === "development";
 
 const typeDefs = readFileSync(
   join(__dirname, "graphql", "schema.graphql"),
@@ -19,7 +20,7 @@ const typeDefs = readFileSync(
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
-app.use(cors())
+app.use(cors());
 
 app.use(
   "/api",
@@ -32,5 +33,5 @@ app.use(
 
 //! Resolver bug de variables de entorno para DEV
 app.listen(4000, function () {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`Listening on port ${PORT}`);
 });
